@@ -18,9 +18,12 @@
         '/pos_receipt_note/static/src/js/model.js',
         '/pos_receipt_note/static/src/js/pos_notes.js',
         ],
+        'web.assets_qweb': [
+            '/pos_gas/static/src/xml/ReceiptScreen.xml',
+        ],
         
     },
-    "qweb": ["static/src/xml/ReceiptScreen.xml"],
+    # "qweb": ["static/src/xml/ReceiptScreen.xml"],
     "images": ["static/description/thumbnail.gif"],
     "license": "LGPL-3",
     "installable": True,
