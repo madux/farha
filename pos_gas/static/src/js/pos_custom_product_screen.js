@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
-import { ProductScreen } from "@point_of_sale/ProductScreen";
+// import { ProductScreen } from "@point_of_sale/ProductScreen";
+import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { Registries } from "@point_of_sale/Registries";
 
 const gasStationDict = {
@@ -8,6 +9,7 @@ const gasStationDict = {
     "Fuel 91 -- بنزين 91": 2.18,
     "Diesel -- ديزل": 1.15,
 };
+
 
 const PosCustomProductScreen = (ProductScreen) =>
     class extends ProductScreen {
@@ -56,6 +58,54 @@ const PosCustomProductScreen = (ProductScreen) =>
     };
 
 Registries.Component.extend(ProductScreen, PosCustomProductScreen);
+
+// const PosCustomProductScreen = (ProductScreen) =>
+//     class extends ProductScreen {
+//         async _onClickProduct(event) {
+//             console.log("Product clicked", event.detail);
+//             await super._onClickProduct(event);
+
+//             const product = event.detail;
+//             console.log("Product name from event:", product.display_name);
+
+//             // Check if the product is a fuel product and the POS is configured as a gas station
+//             if (
+//                 gasStationDict[product.display_name] &&
+//                 this.env.pos.config.is_gas_station
+//             ) {
+//                 this.state.numpadMode = "price";
+//                 this.trigger("set-numpad-mode", { mode: "price" });
+//                 console.log("Numpad mode set to price for", product.display_name);
+//             }
+//         }
+
+//         async _onUpdateSelectedOrderline(event) {
+//             await super._onUpdateSelectedOrderline(event);
+
+//             const selectedLine = this.currentOrder.get_selected_orderline();
+//             if (
+//                 selectedLine &&
+//                 gasStationDict[selectedLine.product.display_name] &&
+//                 this.state.numpadMode === "price" &&
+//                 this.env.pos.config.is_gas_station
+//             ) {
+//                 const totalPrice = parseFloat(event.detail.buffer);
+//                 if (!isNaN(totalPrice)) {
+//                     const pricePerLiter =
+//                         gasStationDict[selectedLine.product.display_name];
+//                     const quantity = totalPrice / pricePerLiter; // Calculate quantity based on the specific fuel price
+
+//                     selectedLine.set_quantity(quantity);
+//                     selectedLine.set_unit_price(pricePerLiter); // Set unit price based on the specific fuel
+//                     this.currentOrder
+//                         .get_selected_orderline()
+//                         .trigger("change", this.currentOrder);
+//                 }
+//             }
+//         }
+//     };
+
+// Registries.Component.extend(ProductScreen, PosCustomProductScreen);
 
 
 // odoo.define("pos_gas.ProductScreen", function (require) {
